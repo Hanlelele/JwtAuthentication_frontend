@@ -25,11 +25,17 @@ const Card = styled(MuiCard)(({ theme }) => ({
 
 export default function LoginForm() {
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, user } = useAuth();
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
+
+    React.useEffect(() => {
+        if (user._id) {
+            navigate('/user/profile');
+        }
+    }, [user, navigate]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
